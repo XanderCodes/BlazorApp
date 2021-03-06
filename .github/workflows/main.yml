@@ -37,8 +37,6 @@ jobs:
 
     - name: Cloning BlazorApp repo
       run: |
-        cd release/wwwroot
-        
         git clone XanderCodes/BlazorApp
         cd BlazorApp/wwwroot
         
