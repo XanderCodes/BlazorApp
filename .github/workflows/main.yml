@@ -16,50 +16,22 @@ jobs:
     - name: Publish with dotnet
       run: dotnet publish BlazorApp.csproj -p:BlazorEnableCompression=false -c Release -o release --nologo
     
-    # - name: Commit to GitHub pages repo
-    #   run: |
-    #     cd release/wwwroot
-        
-    #     git config --global user.email "${{ secrets.EMAIL }}"
-    #     git config --global user.name "XanderCodes"
-        
-    #     git add .
-    #     git commit -m "Committed from GitHub Action."
-    #     git branch -M main
-                
-    #     git push https://XanderCodes:${{ secrets.PASSWORD }}@github.com/XanderCodes/xandercodes.github.io.git
-
-    - name: Checkout pages repo
-      uses: actions/checkout@v2
-      with:
-        repository: XanderCodes/xandercodes.github.io
-        token: ${{ secrets.PAT_TOKEN }} # `GitHub_PAT` is a secret that contains your PAT
-
-    - name: Cloning BlazorApp repo
+    - name: Commit to GitHub pages repo
       run: |
-        git clone https://github.com/XanderCodes/BlazorApp
-        cd BlazorApp/wwwroot
+        cd release/wwwroot
+        
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
         
         git add .
         git commit -m "Committed from GitHub Action."
-        git branch -M main
-                
-        git push https://github.com/XanderCodes/xandercodes.github.io.git
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.PAT_TOKEN }}
+        branch: master
+        repository: XanderCodes/xandercodes.github.io
 
 #     git config --global user.email "${{ secrets.EMAIL }}"
 #     git config --global user.name "XanderCodes"
-        
-    # - name: Commit wwwroot to GitHub Pages
-    #   uses: JamesIves/github-pages-deploy-action@3.7.1
-    #   with:
-    #     ACCESS_TOKEN: ${{ secrets.PAT_TOKEN }}
-    #     REPOSITORY_NAME: XanderCodes/xandercodes.github.io
-    #     BRANCH: master
-    #     FOLDER: release/wwwroot
-
-#     - name: Commit wwwroot to GitHub Pages
-#       uses: JamesIves/github-pages-deploy-action@3.7.1
-#       with:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         BRANCH: gh-pages
-#         FOLDER: release/wwwroot
