@@ -37,7 +37,7 @@ jobs:
 
     - name: Cloning BlazorApp repo
       run: |
-        git clone XanderCodes/BlazorApp
+        git clone https://github.com/XanderCodes/BlazorApp
         cd BlazorApp/wwwroot
         
         git add .
