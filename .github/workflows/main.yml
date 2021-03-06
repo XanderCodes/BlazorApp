@@ -20,14 +20,14 @@ jobs:
       run: |
         cd release/wwwroot
         
-        git config --global user.email "${{ secrets.EMAIL }}"
-        git config --global user.name "XanderCodes"
-        
         git add .
         git commit -m "Committed from GitHub Action."
         git branch -M main
-        git push https://XanderCodes:${{ secrets.PAT_TOKEN }}@github.com/XanderCodes/xandercodes.github.io.git
+                
+        git push https://XanderCodes:${{ secrets.PASSWORD }}@github.com/XanderCodes/xandercodes.github.io.git
 
+#     git config --global user.email "${{ secrets.EMAIL }}"
+#     git config --global user.name "XanderCodes"
         
     # - name: Commit wwwroot to GitHub Pages
     #   uses: JamesIves/github-pages-deploy-action@3.7.1
