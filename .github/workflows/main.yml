@@ -23,7 +23,6 @@ jobs:
     
     - name: Commit to GitHub pages repo
       run: |
-        git init
         cd release/wwwroot
         git add .
         git commit -m "Committed from GitHub Action."
