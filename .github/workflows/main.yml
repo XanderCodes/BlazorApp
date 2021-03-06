@@ -9,11 +9,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-#     - name: Setup .NET Core
-#       uses: actions/setup-dotnet@v1
-#       with:
-#         dotnet-version: '5.0.3'
+      with:
+        # Repository name with owner. For example, actions/checkout
+        # Default: ${{ github.repository }}
+        repository: 'XanderCodes/xandercodes.github.io'
+        token: '${{ secrets.PAT_TOKEN }}'
 
     - name: Install dotnet 5
       run: sudo apt-get update && sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-get install -y dotnet-sdk-5.0
@@ -23,14 +23,13 @@ jobs:
     
     - name: Commit to GitHub pages repo
       run: |
-        git config --global user.email "${{ secrets.EMAIL }}"
-        git config --global user.name "XanderCodes"
-        
         cd release/wwwroot
         git add .
         git commit -m "Committed from GitHub Action."
         git branch -M main
-        git push https://XanderCodes:${{ secrets.PAT_TOKEN }}@github.com/XanderCodes/xandercodes.github.io.git
+        git push https://github.com/XanderCodes/xandercodes.github.io.git
+
+        
     # - name: Commit wwwroot to GitHub Pages
     #   uses: JamesIves/github-pages-deploy-action@3.7.1
     #   with:
