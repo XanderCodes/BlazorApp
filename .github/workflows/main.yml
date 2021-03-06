@@ -16,22 +16,32 @@ jobs:
     - name: Publish with dotnet
       run: dotnet publish BlazorApp.csproj -p:BlazorEnableCompression=false -c Release -o release --nologo
     
-    - name: Commit to GitHub pages repo
-      run: |
-        cd release/wwwroot
+    # - name: Commit to GitHub pages repo
+    #   run: |
+    #     cd release/wwwroot
         
-        git config --local user.email "${{ secrets.EMAIL }}"
-        git config --local user.name "XanderCodes"
+    #     git config --local user.email "${{ secrets.EMAIL }}"
+    #     git config --local user.name "XanderCodes"
         
-        git add .
-        git commit -m "Committed from GitHub Action."
+    #     git add .
+    #     git commit -m "Committed from GitHub Action."
 
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: master
-        repository: XanderCodes/xandercodes.github.io
+    - name: Pushes to another repository
+        uses: cpina/github-action-push-to-another-repository@master
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.PAT_TOKEN }}
+        with:
+          source-directory: 'release/wwwroot'
+          destination-github-username: 'XanderCodes'
+          destination-repository-name: 'xandercodes.github.io'
+          user-email: ${{ secrets.EMAIL }}
+
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     branch: master
+    #     repository: XanderCodes/xandercodes.github.io
 
 #     git config --global user.email "${{ secrets.EMAIL }}"
 #     git config --global user.name "XanderCodes"
