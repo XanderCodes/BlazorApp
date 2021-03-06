@@ -9,11 +9,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-#       with:
-#         # Repository name with owner. For example, actions/checkout
-#         # Default: ${{ github.repository }}
-#         repository: 'XanderCodes/xandercodes.github.io'
-#         token: '${{ secrets.PAT_TOKEN }}'
+      with:
+        repository: 'XanderCodes/xandercodes.github.io'
+        token: '${{ secrets.PAT_TOKEN }}'
 
     - name: Install dotnet 5
       run: sudo apt-get update && sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-get install -y dotnet-sdk-5.0
