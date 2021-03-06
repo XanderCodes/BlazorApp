@@ -1,0 +1,37 @@
+name: gh-pages
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+#     - name: Setup .NET Core
+#       uses: actions/setup-dotnet@v1
+#       with:
+#         dotnet-version: '5.0.3'
+
+    - name: Install dotnet 5
+      run: sudo apt-get update && sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-get install -y dotnet-sdk-5.0
+        
+    - name: Publish with dotnet
+      run: dotnet publish BlazorApp.csproj -p:BlazorEnableCompression=false -c Release -o release --nologo
+    
+    - name: Commit wwwroot to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@3.7.1
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPOSITORY_NAME: XanderCodes/xandercodes.github.io
+        BRANCH: main
+        FOLDER: release/wwwroot
+
+#     - name: Commit wwwroot to GitHub Pages
+#       uses: JamesIves/github-pages-deploy-action@3.7.1
+#       with:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         BRANCH: gh-pages
+#         FOLDER: release/wwwroot
