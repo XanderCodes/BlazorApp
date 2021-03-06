@@ -21,13 +21,23 @@ jobs:
     - name: Publish with dotnet
       run: dotnet publish BlazorApp.csproj -p:BlazorEnableCompression=false -c Release -o release --nologo
     
-    - name: Commit wwwroot to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@3.7.1
-      with:
-        ACCESS_TOKEN: ${{ secrets.PAT_TOKEN }}
-        REPOSITORY_NAME: XanderCodes/xandercodes.github.io
-        BRANCH: master
-        FOLDER: release/wwwroot
+    - name: Commit to GitHub pages repo
+      run: |
+        git init
+        cd release/wwwroot
+        git add .
+        git commit -m "Committed from GitHub Action."
+        git branch -M main
+
+        git push https://XanderCodes:${{ secrets.PAT_TOKEN }}@github.com/XanderCodes/xandercodes.github.io.git
+
+    # - name: Commit wwwroot to GitHub Pages
+    #   uses: JamesIves/github-pages-deploy-action@3.7.1
+    #   with:
+    #     ACCESS_TOKEN: ${{ secrets.PAT_TOKEN }}
+    #     REPOSITORY_NAME: XanderCodes/xandercodes.github.io
+    #     BRANCH: master
+    #     FOLDER: release/wwwroot
 
 #     - name: Commit wwwroot to GitHub Pages
 #       uses: JamesIves/github-pages-deploy-action@3.7.1
