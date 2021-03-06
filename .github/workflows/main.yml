@@ -9,9 +9,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        repository: 'XanderCodes/xandercodes.github.io'
-        token: '${{ secrets.PAT_TOKEN }}'
 
     - name: Install dotnet 5
       run: sudo apt-get update && sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-get install -y dotnet-sdk-5.0
@@ -25,7 +22,7 @@ jobs:
         git add .
         git commit -m "Committed from GitHub Action."
         git branch -M main
-        git push https://github.com/XanderCodes/xandercodes.github.io.git
+        git push https://${{ secrets.PAT_TOKEN }}@github.com/XanderCodes/xandercodes.github.io.git
 
         
     # - name: Commit wwwroot to GitHub Pages
