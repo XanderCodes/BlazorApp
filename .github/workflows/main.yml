@@ -15,6 +15,10 @@ jobs:
         
     - name: Publish with dotnet
       run: dotnet publish BlazorApp.csproj -p:BlazorEnableCompression=false -c Release -o release --nologo
+      
+    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+    - name: Add .nojekyll file
+      run: touch release/wwwroot/.nojekyll
     
     # - name: Commit to GitHub pages repo
     #   run: |
