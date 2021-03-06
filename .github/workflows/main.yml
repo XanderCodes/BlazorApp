@@ -16,18 +16,34 @@ jobs:
     - name: Publish with dotnet
       run: dotnet publish BlazorApp.csproj -p:BlazorEnableCompression=false -c Release -o release --nologo
     
-    - name: Commit to GitHub pages repo
+    # - name: Commit to GitHub pages repo
+    #   run: |
+    #     cd release/wwwroot
+        
+    #     git config --global user.email "${{ secrets.EMAIL }}"
+    #     git config --global user.name "XanderCodes"
+        
+    #     git add .
+    #     git commit -m "Committed from GitHub Action."
+    #     git branch -M main
+                
+    #     git push https://XanderCodes:${{ secrets.PASSWORD }}@github.com/XanderCodes/xandercodes.github.io.git
+
+    - name: Checkout pages repo
+      uses: actions/checkout@v2
+      with:
+        repository: XanderCodes/xandercodes.github.io
+        token: ${{ secrets.PAT_TOKEN }} # `GitHub_PAT` is a secret that contains your PAT
+        path: pages-repo'
+
       run: |
         cd release/wwwroot
-        
-        git config --global user.email "${{ secrets.EMAIL }}"
-        git config --global user.name "XanderCodes"
         
         git add .
         git commit -m "Committed from GitHub Action."
         git branch -M main
                 
-        git push https://XanderCodes:${{ secrets.PASSWORD }}@github.com/XanderCodes/xandercodes.github.io.git
+        git push https://github.com/XanderCodes/xandercodes.github.io.git
 
 #     git config --global user.email "${{ secrets.EMAIL }}"
 #     git config --global user.name "XanderCodes"
